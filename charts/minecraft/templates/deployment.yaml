@@ -156,6 +156,7 @@ spec:
 {{- template "minecraft.envMap" list "OPS" .Values.minecraftServer.ops  }}
 {{- template "minecraft.envMap" list "ICON" .Values.minecraftServer.icon  }}
 {{- template "minecraft.envMap" list "MAX_PLAYERS" .Values.minecraftServer.maxPlayers  }}
+{{- template "minecraft.envMap" list "SERVER_PORT" .Values.minecraftServer.servicePort  }}
 {{- template "minecraft.envMap" list "MAX_WORLD_SIZE" .Values.minecraftServer.maxWorldSize  }}
 {{- template "minecraft.envMap" list "ALLOW_NETHER" .Values.minecraftServer.allowNether  }}
 {{- template "minecraft.envMap" list "ANNOUNCE_PLAYER_ACHIEVEMENTS" .Values.minecraftServer.announcePlayerAchievements  }}
@@ -299,7 +300,7 @@ spec:
 
         ports:
         - name: minecraft
-          containerPort: 25565
+          containerPort: {{ .Values.minecraftServer.servicePort | default 25565 }}
           protocol: TCP
         {{- if .Values.minecraftServer.rcon.enabled }}
         - name: rcon
